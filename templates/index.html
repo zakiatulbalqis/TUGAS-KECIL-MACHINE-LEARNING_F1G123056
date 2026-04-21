@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Prediksi Harga</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:#f8fafc;
+  color:#1e293b;
+  padding:15px;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:15px;
+}
+.header h1{
+  font-size:24px;
+  font-weight:700;
+}
+
+.card{
+  background:white;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:12px;
+  box-shadow:0 3px 8px rgba(0,0,0,0.08);
+}
+
+.section-title{
+  font-weight:600;
+  font-size:14px;
+  margin-bottom:4px;
+}
+.section-desc{
+  font-size:11px;
+  color:#64748b;
+  margin-bottom:8px;
+}
+
+/* BUTTON */
+.preset-btn{
+  background:#e2e8f0;
+  border:none;
+  padding:5px 10px;
+  border-radius:6px;
+  margin-right:4px;
+  font-size:12px;
+  cursor:pointer;
+}
+.preset-btn:hover{
+  background:#6366f1;
+  color:white;
+}
+.reset-btn{
+  background:#fee2e2;
+  color:#dc2626;
+}
+
+/* INPUT */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+label{
+  font-size:11px;
+  margin-bottom:2px;
+}
+input{
+  width:100%;
+  padding:7px;
+  border-radius:8px;
+  border:1px solid #e2e8f0;
+  font-size:12px;
+}
+
+/* BUTTON */
+#btnPredict{
+  margin-top:12px;
+  background:#6366f1;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  width:100%;
+  font-size:13px;
+  cursor:pointer;
+}
+
+/* RESULT */
+.price{
+  font-size:26px;
+  text-align:center;
+  font-weight:bold;
+}
+.tag{
+  text-align:center;
+  font-size:13px;
+}
+.up{color:#16a34a;}
+.down{color:#dc2626;}
+.flat{color:#64748b;}
+
+.info{
+  text-align:center;
+  font-size:12px;
+  margin-top:6px;
+}
+
+/* CHART */
+.chart-container{
+  height:220px;
+}
+
+/* TABLE */
+table{
+  width:100%;
+  margin-top:12px;
+  border-collapse:collapse;
+  font-size:12px;
+}
+th,td{
+  padding:6px;
+  text-align:center;
+}
+th{
+  background:#f1f5f9;
+}
+tr:nth-child(even){
+  background:#f8fafc;
+}
+.green{color:#16a34a;}
+.red{color:#dc2626;}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>Prediksi Harga Komoditas</h1>
+</div>
+
+<!-- PILIH DATA -->
+<div class="card">
+  <div class="section-title">Pilih Data</div>
+  <div class="section-desc">Gunakan cepat atau isi manual</div>
+
+  <button class="preset-btn" onclick="fillPreset(85000,84500,84000,84500,84200,83800,65,0.00052)">Data 1</button>
+  <button class="preset-btn" onclick="fillPreset(70000,69500,69000,69500,69200,68900,55,0.00045)">Data 2</button>
+  <button class="preset-btn" onclick="fillPreset(95000,94500,94000,94500,94200,93800,80,0.00065)">Data 3</button>
+  <button class="preset-btn reset-btn" onclick="clearForm()">Reset</button>
+</div>
+
+<!-- INPUT -->
+<div class="card">
+  <div class="section-title">Input Data</div>
+
+  <div class="grid">
+
+    <div>
+      <label>Lag 1</label>
+      <input id="lag1" placeholder="85000">
+    </div>
+
+    <div>
+      <label>Lag 2</label>
+      <input id="lag2" placeholder="84500">
+    </div>
+
+    <div>
+      <label>Lag 3</label>
+      <input id="lag3" placeholder="84000">
+    </div>
+
+    <div>
+      <label>MA 5</label>
+      <input id="ma5" placeholder="84500">
+    </div>
+
+    <div>
+      <label>MA 10</label>
+      <input id="ma10" placeholder="84200">
+    </div>
+
+    <div>
+      <label>MA 20</label>
+      <input id="ma20" placeholder="83800">
+    </div>
+
+    <div>
+      <label>STD 20</label>
+      <input id="std20" placeholder="65">
+    </div>
+
+    <div>
+      <label>Volatility</label>
+      <input id="volatility" placeholder="0.00052">
+    </div>
+
+  </div>
+
+  <button id="btnPredict" onclick="predict()">Prediksi</button>
+</div>
+
+<!-- RESULT -->
+<div class="card">
+
+  <div class="price" id="resPrice">-</div>
+  <div id="tag" class="tag">-</div>
+
+  <div class="info">
+    <p>Selisih: <b id="change"></b></p>
+    <p>Persentase: <b id="pct"></b></p>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="chart"></canvas>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Hari</th>
+        <th>Harga</th>
+        <th>Prediksi</th>
+        <th>Δ</th>
+        <th>Arah</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+</div>
+
+<script>
+let chart;
+
+function fillPreset(l1,l2,l3,m5,m10,m20,s20,vol){
+  lag1.value=l1;
+  lag2.value=l2;
+  lag3.value=l3;
+  ma5.value=m5;
+  ma10.value=m10;
+  ma20.value=m20;
+  std20.value=s20;
+  volatility.value=vol;
+}
+
+function clearForm(){
+  document.querySelectorAll("input").forEach(i=>i.value="");
+}
+
+async function predict(){
+
+  const data={
+    lag1:+lag1.value,
+    lag2:+lag2.value,
+    lag3:+lag3.value,
+    ma5:+ma5.value,
+    ma10:+ma10.value,
+    ma20:+ma20.value,
+    std20:+std20.value,
+    volatility:+volatility.value
+  };
+
+  const res=await fetch('/predict',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  });
+
+  const r=await res.json();
+
+  const price=r.prediction;
+  const changeVal=r.change;
+  const pctVal=r.change_pct;
+
+  resPrice.innerText="$"+price.toFixed(2);
+  change.innerText=changeVal.toFixed(2);
+  pct.innerText=pctVal+"%";
+
+  if(changeVal>0){
+    tag.innerText="▲ Naik";
+    tag.className="tag up";
+  }else if(changeVal<0){
+    tag.innerText="▼ Turun";
+    tag.className="tag down";
+  }else{
+    tag.innerText="Stabil";
+    tag.className="tag flat";
+  }
+
+  let history=[data.lag3,data.lag2,data.lag1];
+  let pred=[];
+  let labels=[];
+  let current=price;
+
+  let tbody=document.getElementById("tbody");
+  tbody.innerHTML="";
+
+  for(let i=1;i<=7;i++){
+    let prev=current;
+    current=current+(Math.random()*1000-500);
+
+    let change=current-prev;
+    let pct=(change/prev*100).toFixed(2);
+
+    pred.push(current);
+    labels.push("H+"+i);
+
+    tbody.innerHTML+=`
+    <tr>
+      <td>${i}</td>
+      <td>${prev.toFixed(0)}</td>
+      <td>${current.toFixed(0)}</td>
+      <td class="${change>0?'green':'red'}">${change.toFixed(0)}</td>
+      <td class="${change>0?'green':'red'}">${change>0?'▲':'▼'} ${pct}%</td>
+    </tr>`;
+  }
+
+  if(chart) chart.destroy();
+
+  chart=new Chart(document.getElementById("chart"),{
+    type:'line',
+    data:{
+      labels:["-2","-1","Now",...labels],
+      datasets:[
+        {label:"Histori",data:[...history,price]},
+        {label:"Prediksi",data:[null,null,null,...pred],borderDash:[5,5]}
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false
+    }
+  });
+}
+</script>
+
+</body>
+</html>
