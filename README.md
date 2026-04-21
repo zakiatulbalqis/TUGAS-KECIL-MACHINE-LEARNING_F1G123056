@@ -35,15 +35,6 @@ Notebook ini berisi:
 pip install -r requirements.txt
 ```
 
-> ⚠️ Jika terjadi konflik versi:
-
-```bash
-python -m venv venv
-venv\Scripts\activate      # Windows
-source venv/bin/activate   # Linux/Mac
-pip install -r requirements.txt
-```
-
 ---
 
 ## 📁 Struktur Folder
@@ -64,7 +55,7 @@ BITCOIN_APP/
 
 ---
 
-## ▶️ Cara Menjalankan Web
+## Cara Menjalankan Web
 
 ```bash
 python app.py
@@ -75,10 +66,36 @@ Buka browser:
 ```
 http://localhost:5050
 ```
+---
+
+## 🌐 Tampilan Web Aplikasi
+
+### 🔹 Halaman Utama (Belum Input Data)
+Halaman awal aplikasi sebelum pengguna memasukkan data prediksi.
+
+![Halaman Utama](<img width="959" height="478" alt="Screenshot 2026-04-21 131805" src="https://github.com/user-attachments/assets/8184a63d-68f8-4913-88fc-686f5d460a57" />
+)
 
 ---
 
-## 🧾 Fitur Input
+### 🔹 Input Data
+Pengguna memasukkan data fitur (lag, moving average, dll).  
+Pada contoh ini digunakan **pilihan data ke-2** agar proses lebih cepat.
+
+![Input Data](<img width="959" height="471" alt="Screenshot 2026-04-21 131942" src="https://github.com/user-attachments/assets/98ea765d-f18c-4820-9991-bf4c99377567" />
+)
+
+---
+
+### 🔹 Hasil Prediksi
+Menampilkan hasil prediksi harga Bitcoin berdasarkan input yang diberikan.
+
+![Hasil Prediksi](<img width="958" height="474" alt="Screenshot 2026-04-21 132018" src="https://github.com/user-attachments/assets/b0227d3b-47b1-4e3f-b48e-68bf8486b8b0" />
+)
+
+---
+
+## Fitur Input
 
 | Fitur      | Keterangan                             |
 | ---------- | -------------------------------------- |
@@ -93,7 +110,7 @@ http://localhost:5050
 
 ---
 
-## 🤖 Model Machine Learning
+## Model Machine Learning
 
 * **Algoritma:** Support Vector Regression (SVR)
 * **Kernel:** Linear
@@ -103,7 +120,7 @@ http://localhost:5050
 
 ---
 
-## 🎯 Tujuan Project
+## Tujuan Project
 
 * Memprediksi harga Bitcoin berdasarkan data historis
 * Mengimplementasikan model ML ke dalam web app
@@ -111,6 +128,6 @@ http://localhost:5050
 
 ---
 
-## 👩‍💻 Author
+## Author
 
 * Zakiatul Balqis
