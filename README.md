@@ -1,4 +1,4 @@
-# 🚀 Prediksi Harga Bitcoin - Web App & Machine Learning
+# Prediksi Harga Bitcoin - Web App & Machine Learning
 
 ## 📌 Deskripsi
 
@@ -7,7 +7,7 @@ Project ini mencakup proses lengkap mulai dari **data preprocessing, training mo
 
 ---
 
-## 📊 Machine Learning Notebook
+## Machine Learning Notebook
 
 Proses training dan analisis dapat dilihat di:
 
@@ -22,14 +22,14 @@ Notebook ini berisi:
 
 ---
 
-## ⚙️ Persyaratan
+## Persyaratan
 
 * Python 3.8+
 * pip
 
 ---
 
-## 📦 Instalasi
+## Instalasi
 
 ```bash
 pip install -r requirements.txt
@@ -37,7 +37,7 @@ pip install -r requirements.txt
 
 ---
 
-## 📁 Struktur Folder
+## Struktur Folder
 
 ```
 BITCOIN_APP/
@@ -73,8 +73,7 @@ http://localhost:5050
 ### 🔹 Halaman Utama (Belum Input Data)
 Halaman awal aplikasi sebelum pengguna memasukkan data prediksi.
 
-![Halaman Utama](<img width="959" height="478" alt="Screenshot 2026-04-21 131805" src="https://github.com/user-attachments/assets/8184a63d-68f8-4913-88fc-686f5d460a57" />
-)
+![Halaman Utama](https://github.com/user-attachments/assets/8184a63d-68f8-4913-88fc-686f5d460a57)
 
 ---
 
@@ -82,16 +81,14 @@ Halaman awal aplikasi sebelum pengguna memasukkan data prediksi.
 Pengguna memasukkan data fitur (lag, moving average, dll).  
 Pada contoh ini digunakan **pilihan data ke-2** agar proses lebih cepat.
 
-![Input Data](<img width="959" height="471" alt="Screenshot 2026-04-21 131942" src="https://github.com/user-attachments/assets/98ea765d-f18c-4820-9991-bf4c99377567" />
-)
+![Input Data](https://github.com/user-attachments/assets/98ea765d-f18c-4820-9991-bf4c99377567)
 
 ---
 
 ### 🔹 Hasil Prediksi
 Menampilkan hasil prediksi harga Bitcoin berdasarkan input yang diberikan.
 
-![Hasil Prediksi](<img width="958" height="474" alt="Screenshot 2026-04-21 132018" src="https://github.com/user-attachments/assets/b0227d3b-47b1-4e3f-b48e-68bf8486b8b0" />
-)
+![Hasil Prediksi](https://github.com/user-attachments/assets/b0227d3b-47b1-4e3f-b48e-68bf8486b8b0)
 
 ---
 
